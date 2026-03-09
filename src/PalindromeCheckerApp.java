@@ -8,21 +8,22 @@ public class PalindromeCheckerApp {
 
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println("Enter a string:");
+        System.out.println("Enter a string to check palindrome:");
         String input = scanner.nextLine();
 
+        // remove spaces and convert to lowercase
         input = input.replaceAll("\\s+", "").toLowerCase();
 
         Deque<Character> deque = new ArrayDeque<>();
 
-        // Insert characters into deque
+        // insert characters into deque
         for (char c : input.toCharArray()) {
             deque.addLast(c);
         }
 
         boolean isPalindrome = true;
 
-        // Compare front and rear
+        // compare front and rear
         while (deque.size() > 1) {
             char first = deque.removeFirst();
             char last = deque.removeLast();
@@ -33,10 +34,11 @@ public class PalindromeCheckerApp {
             }
         }
 
+        // output result
         if (isPalindrome) {
-            System.out.println("Palindrome");
+            System.out.println("The string is a Palindrome.");
         } else {
-            System.out.println("Not a Palindrome");
+            System.out.println("The string is NOT a Palindrome.");
         }
 
         scanner.close();
