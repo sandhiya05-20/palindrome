@@ -1,3 +1,5 @@
+import java.util.Queue;
+import java.util.LinkedList;
 import java.util.Stack;
 
 public class PalindromeCheckerApp {
@@ -5,69 +7,40 @@ public class PalindromeCheckerApp {
     public static void main(String[] args) {
 
         System.out.println("==================================");
-        System.out.println("     Palindrome Checker - UC4     ");
+        System.out.println(" Palindrome Checker - UC6 ");
         System.out.println("==================================");
 
-        // Hardcoded string
-        String word = "madam";
+        String input = "level";
+
+        Queue<Character> queue = new LinkedList<>();
+        Stack<Character> stack = new Stack<>();
+
+        // Insert characters into Queue and Stack
+        for (char c : input.toCharArray()) {
+            queue.add(c);     // enqueue
+            stack.push(c);    // push
+        }
 
         boolean isPalindrome = true;
 
-        int start = 0;
-        int end = word.length() - 1;
+        // Compare dequeue and pop
+        while (!queue.isEmpty()) {
 
-        // UC4 : Two Pointer Palindrome Check
-        while (start < end) {
+            char qChar = queue.remove(); // dequeue
+            char sChar = stack.pop();    // pop
 
-            if (word.charAt(start) != word.charAt(end)) {
+            if (qChar != sChar) {
                 isPalindrome = false;
                 break;
             }
-
-            start++;
-            end--;
         }
 
         if (isPalindrome) {
-            System.out.println(word + " is a Palindrome.");
+            System.out.println(input + " is a Palindrome.");
         } else {
-            System.out.println(word + " is NOT a Palindrome.");
+            System.out.println(input + " is NOT a Palindrome.");
         }
 
-
-        // ==================================
-        // UC5 : Stack Based Palindrome Check
-        // ==================================
-
-        System.out.println("\n==================================");
-        System.out.println("     Palindrome Checker - UC5     ");
-        System.out.println("==================================");
-
-        String stackWord = "noon";
-
-        Stack<Character> stack = new Stack<>();
-
-        // Push characters into stack
-        for (char c : stackWord.toCharArray()) {
-            stack.push(c);
-        }
-
-        boolean stackPalindrome = true;
-
-        // Pop and compare
-        for (char c : stackWord.toCharArray()) {
-            if (c != stack.pop()) {
-                stackPalindrome = false;
-                break;
-            }
-        }
-
-        if (stackPalindrome) {
-            System.out.println(stackWord + " is a Palindrome using Stack.");
-        } else {
-            System.out.println(stackWord + " is NOT a Palindrome using Stack.");
-        }
-
-        System.out.println("\nProgram Ended.");
+        System.out.println("Program Ended.");
     }
 }
