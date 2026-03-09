@@ -9,21 +9,9 @@ public class PalindromeCheckerApp {
         System.out.println("Enter a string:");
         String input = scanner.nextLine();
 
-        System.out.println("Choose Strategy:");
-        System.out.println("1. Stack Strategy");
-        System.out.println("2. Deque Strategy");
+        PalindromeChecker checker = new PalindromeChecker();
 
-        int choice = scanner.nextInt();
-
-        PalindromeStrategy strategy;
-
-        if (choice == 1) {
-            strategy = new StackStrategy();
-        } else {
-            strategy = new DequeStrategy();
-        }
-
-        if (strategy.isPalindrome(input)) {
+        if (checker.checkPalindrome(input)) {
             System.out.println("Palindrome");
         } else {
             System.out.println("Not a Palindrome");
@@ -31,55 +19,26 @@ public class PalindromeCheckerApp {
 
         scanner.close();
     }
+}
 
-    // INTERFACE
-    interface PalindromeStrategy {
-        boolean isPalindrome(String input);
-    }
+class PalindromeChecker {
 
-    // STACK STRATEGY
-    static class StackStrategy implements PalindromeStrategy {
+    public boolean checkPalindrome(String input) {
 
-        public boolean isPalindrome(String input) {
+        String normalized = input.replaceAll("\\s+", "").toLowerCase();
 
-            String normalized = input.replaceAll("\\s+", "").toLowerCase();
+        Stack<Character> stack = new Stack<>();
 
-            Stack<Character> stack = new Stack<>();
-
-            for (char c : normalized.toCharArray()) {
-                stack.push(c);
-            }
-
-            for (char c : normalized.toCharArray()) {
-                if (c != stack.pop()) {
-                    return false;
-                }
-            }
-
-            return true;
+        for (char c : normalized.toCharArray()) {
+            stack.push(c);
         }
-    }
 
-    // DEQUE STRATEGY
-    static class DequeStrategy implements PalindromeStrategy {
-
-        public boolean isPalindrome(String input) {
-
-            String normalized = input.replaceAll("\\s+", "").toLowerCase();
-
-            Deque<Character> deque = new ArrayDeque<>();
-
-            for (char c : normalized.toCharArray()) {
-                deque.addLast(c);
+        for (char c : normalized.toCharArray()) {
+            if (c != stack.pop()) {
+                return false;
             }
-
-            while (deque.size() > 1) {
-                if (deque.removeFirst() != deque.removeLast()) {
-                    return false;
-                }
-            }
-
-            return true;
         }
+
+        return true;
     }
 }
